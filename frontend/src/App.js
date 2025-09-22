@@ -23,7 +23,7 @@ function App() {
     setLoading(true);
     try {
       // TTS
-      const ttsRes = await fetch('http://localhost:5000/api/tts', {
+      const ttsRes = await fetch('https://script2vid-eggb.onrender.com/api/tts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ script, accent })
@@ -40,7 +40,7 @@ function App() {
       // Video
       let vidUrl = '';
       if (useAI) {
-        const vidRes = await fetch('http://localhost:5000/api/generate-video', {
+        const vidRes = await fetch('https://script2vid-eggb.onrender.com/api/generate-video', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ prompt: videoPrompt })
@@ -57,7 +57,7 @@ function App() {
       } else if (video) {
         const formData = new FormData();
         formData.append('video', video);
-        const uploadRes = await fetch('http://localhost:5000/api/upload-video', {
+        const uploadRes = await fetch('https://script2vid-eggb.onrender.com/api/upload-video', {
           method: 'POST',
           body: formData
         });
@@ -68,7 +68,7 @@ function App() {
 
       // Combine video, audio, and text overlay
       if (ttsData.audioUrl && vidUrl) {
-        const combineRes = await fetch('http://localhost:5000/api/combine', {
+        const combineRes = await fetch('https://script2vid-eggb.onrender.com/api/combine', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ videoUrl: vidUrl, audioUrl: ttsData.audioUrl, script })
